@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
+             x:Class="MauiAppExample.View.LoginPage"
+             x:DataType="viewmodel:LoginPageViewModel"
+             Title="LoginPage">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Label 
+            Text="Welcome!"
+            FontSize="32"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button VerticalOptions="Center" Margin="0,10,0,0" FontSize="32" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>
