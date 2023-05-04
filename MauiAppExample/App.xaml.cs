@@ -12,7 +12,7 @@ public partial class App : Application
         var authService = serviceProvider.GetService<IAuthenticationService>();
 
         if (authService.IsAuthenticated)
-			MainPage = new AppShell();
+            MainPage = new AppShell();
 
         MainPage = serviceProvider.GetService<LoginPage>();
     }

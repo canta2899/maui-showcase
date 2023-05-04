@@ -19,7 +19,7 @@ public partial class LoginPage : ContentPage
         {
             await DisplayAlert("Warning", $"Invalid authentication: {r.ErrorMessage}", "Ok");
             return;
-		}
+        }
 
         Application.Current.MainPage = new AppShell();
     }
