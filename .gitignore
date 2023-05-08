@@ -4,4 +4,5 @@ bin/
 obj/
 /packages/
 riderModule.iml
+MauiAppExample.csproj.user
 /_ReSharper.Caches/

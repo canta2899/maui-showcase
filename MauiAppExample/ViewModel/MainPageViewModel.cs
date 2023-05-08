@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using MauiAppExample.Model;
 using MauiAppExample.Services;
 using MauiAppExample.View;
-using Security;
 
 namespace MauiAppExample.ViewModel;
 
