@@ -16,6 +16,6 @@ public class ProductPageViewModel : BaseViewModel
 
     public ProductPageViewModel()
     {
-        Msg = "Banane";
+        Msg = "Sei proprio un simpaticone";
     }
 }

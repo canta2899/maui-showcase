@@ -32,6 +32,11 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
       <CreatePackage>false</CreatePackage>
+      <CodesignKey>iPhone Developer</CodesignKey>
+      <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+      <CreatePackage>false</CreatePackage>
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
@@ -54,12 +59,17 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Model" />
       <Folder Include="Services\" />
       <Folder Include="Data\" />
+      <Folder Include="Model\" />
+      <Folder Include="Shared\" />
+      <Folder Include="Model\Auth\" />
+      <Folder Include="Extensions\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -85,5 +95,9 @@
     <ItemGroup>
       <None Remove="Services\" />
       <None Remove="Data\" />
+      <None Remove="Model\" />
+      <None Remove="Shared\" />
+      <None Remove="Model\Auth\" />
+      <None Remove="Extensions\" />
     </ItemGroup>
 </Project>

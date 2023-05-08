@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Text;
+using System.Text.Json;
 using MauiAppExample.Data;
+using MauiAppExample.Extensions;
+using MauiAppExample.Model.Auth;
 
 namespace MauiAppExample.Services
 {
@@ -11,13 +15,16 @@ namespace MauiAppExample.Services
 
         public bool IsAuthenticated => false;
 
-        public Response Login(string userName, string password)
+        public string AccessToken { get; private set; }
+
+        public User CurrentUser { get; private set; }
+
+        public void UpdateAuthentication(AuthenticationResponse authResponse)
         {
-            var seconds = DateTime.Now.Second;
-            return seconds % 2 == 0 ?
-                    Response.Error("Errore brutto") :
-                    Response.Success;
+            AccessToken = authResponse.Jwt;
+            CurrentUser = authResponse.User;
         }
     }
+
 }
 

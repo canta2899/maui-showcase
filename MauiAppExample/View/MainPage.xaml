@@ -19,14 +19,14 @@
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Welcome"
+                Text="{Binding WelcomeMessage}"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
             <Button
                 x:Name="NavigateBtn"
-                Text="Go to product page"
+                Text="Change Page"
                 SemanticProperties.Hint="Navigates to product page"
                 Command="{Binding NavigateCommand}"
                 HorizontalOptions="Center" />

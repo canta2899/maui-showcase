@@ -1,7 +1,6 @@
 ﻿using MauiAppExample.Services;
 using MauiAppExample.View;
 using MauiAppExample.ViewModel;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace MauiAppExample;
@@ -19,13 +18,16 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+        builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<ProductPageViewModel>();
         builder.Services.AddSingleton<ProductPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<LoginPageViewModel>();
+        builder.Services.AddScoped<StrapiClientAuthHandler>();
+        builder.Services.AddHttpClient<StrapiClient>().AddHttpMessageHandler<StrapiClientAuthHandler>();
+;
 
 #if DEBUG
         builder.Logging.AddDebug();

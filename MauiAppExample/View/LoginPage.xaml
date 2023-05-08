@@ -12,6 +12,16 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Button VerticalOptions="Center" Margin="0,10,0,0" FontSize="32" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
+        <StackLayout Orientation="Vertical" Margin="0,50,0,50">
+			<Label FontSize="20" Text="Username" WidthRequest="120"/>
+			<Entry x:Name="userNameEntry" FontSize="15" Placeholder="Entry your identifier" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+		</StackLayout>
+
+        <StackLayout Orientation="Vertical">
+				<Label FontSize="20" Text="Password" WidthRequest="120"/>
+				<Entry x:Name="passwordEntry" FontSize="15" Placeholder="Entry your username" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+		</StackLayout>
+
+        <Button VerticalOptions="Center" Margin="0,50,0,0" FontSize="32" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
