@@ -12,7 +12,6 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
 
-            <Label Style="{StaticResource LabelCustom}" Text="A message: "></Label> 
             <Label Text="{Binding Msg}" Style="{StaticResource LabelCustom}"/>
         </VerticalStackLayout>
     </ScrollView>

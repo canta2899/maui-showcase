@@ -1,4 +1,5 @@
-﻿using MauiAppExample.Services;
+﻿using CommunityToolkit.Maui;
+using MauiAppExample.Services;
 using MauiAppExample.View;
 using MauiAppExample.ViewModel;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,8 +28,8 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<LoginPageViewModel>();
         builder.Services.AddScoped<StrapiClientAuthHandler>();
+        builder.Services.AddTransient<PostsRepository>();
         builder.Services.AddHttpClient<StrapiClient>().AddHttpMessageHandler<StrapiClientAuthHandler>();
-;
 
 #if DEBUG
         builder.Logging.AddDebug();

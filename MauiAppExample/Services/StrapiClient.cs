@@ -3,7 +3,6 @@ using MauiAppExample.Data;
 using MauiAppExample.Extensions;
 using MauiAppExample.Model;
 using MauiAppExample.Model.Auth;
-using MauiAppExample.Shared;
 
 namespace MauiAppExample.Services
 {
@@ -21,6 +20,11 @@ namespace MauiAppExample.Services
             _httpClient.BaseAddress = new Uri(STRAPI_BASE_URL);
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+        }
+
+        public async Task<T> GetJson<T>(string endpoint)
+        {
+            return await _httpClient.GetJson<T>(endpoint);
         }
 
         public async Task<Response> Login(AuthenticationRequest authRequest)

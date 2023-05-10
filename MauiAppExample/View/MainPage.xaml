@@ -2,9 +2,17 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
+             xmlns:model="clr-namespace:MauiAppExample.Model"
              x:DataType="viewmodel:MainPageViewModel"
              x:Class="MauiAppExample.View.MainPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+	        Command="{Binding OnAppearingCommand}"/>
+    </ContentPage.Behaviors>
 
     <ScrollView>
         <VerticalStackLayout
@@ -30,8 +38,26 @@
                 SemanticProperties.Hint="Navigates to product page"
                 Command="{Binding NavigateCommand}"
                 HorizontalOptions="Center" />
+            
+            <Button
+                Text="Fetch"
+                HorizontalOptions="Center"
+                Command="{Binding OnAppearingCommand}"
+                />
 
+
+            <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Post">
+                        <Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
+                            <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
+                            <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}"/>
+						</Grid>
+				    </DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
         </VerticalStackLayout>
+
     </ScrollView>
 
 </ContentPage>

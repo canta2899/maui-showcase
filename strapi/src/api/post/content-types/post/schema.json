@@ -4,7 +4,8 @@
   "info": {
     "singularName": "post",
     "pluralName": "posts",
-    "displayName": "post"
+    "displayName": "post",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,7 +15,7 @@
     "title": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "text"
     }
   }

@@ -35,9 +35,6 @@ public class LoginPageViewModel : BaseViewModel
 		    async () => await Authenticate());
     }
 
-    private bool CanAuthenticate() =>
-	 !string.IsNullOrEmpty(Identifier) && !string.IsNullOrEmpty(Password);
-
     private async Task Authenticate()
     {
         var response = await _client.Login(new AuthenticationRequest { Identifier = Identifier, Password = Password }); ;

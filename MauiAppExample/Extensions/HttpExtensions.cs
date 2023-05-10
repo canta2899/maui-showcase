@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Web;
 using MauiAppExample.Data;
 
 namespace MauiAppExample.Extensions;
@@ -29,6 +30,17 @@ public static class HttpExtensions
 		    "application/json");
 
         var response = await client.PostAsync(endpoint, content);
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        return responseString.FromJson<T>();
+    }
+
+    public static async Task<T> GetJson<T>(this HttpClient client, string endpoint)
+    {
+        var response = await client.GetAsync(endpoint);
 
         response.EnsureSuccessStatusCode();
 
