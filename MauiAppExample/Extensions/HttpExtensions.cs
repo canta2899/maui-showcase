@@ -25,9 +25,9 @@ public static class HttpExtensions
     public static async Task<T> PostJson<T>(this HttpClient client, string endpoint, object payload)
     {
         var content = new StringContent(
-		    payload.ToJson(),
-		    Encoding.UTF8,
-		    "application/json");
+            payload.ToJson(),
+            Encoding.UTF8,
+            "application/json");
 
         var response = await client.PostAsync(endpoint, content);
 

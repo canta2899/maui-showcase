@@ -28,8 +28,8 @@ namespace MauiAppExample.Extensions
             catch (Exception ex)
             {
                 throw new SerializerException(ex.Message, ex);
-		    }
-		}
+            }
+        }
 
         /// <summary>
         /// Deserializes a JSON string to an instance of the given typeparam
@@ -41,15 +41,15 @@ namespace MauiAppExample.Extensions
 
         public static T FromJson<T>(this string entry)
         {
-            try 
-		    { 
-			    return JsonSerializer.Deserialize<T>(entry, _options);
-		    }
+            try
+            {
+                return JsonSerializer.Deserialize<T>(entry, _options);
+            }
             catch (Exception ex)
             {
                 throw new SerializerException(ex.Message, ex);
-		    }
-		}
+            }
+        }
     }
 }
 
