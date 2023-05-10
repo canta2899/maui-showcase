@@ -46,18 +46,18 @@
                 />
 
 
-            <CollectionView ItemsSource="{Binding Posts}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Post">
-                        <Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
+			<CollectionView ItemsSource="{Binding Posts}">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="model:Post">
+						<Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
                             <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
                             <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}"/>
 						</Grid>
-				    </DataTemplate>
+					</DataTemplate>
 				</CollectionView.ItemTemplate>
 			</CollectionView>
-        </VerticalStackLayout>
+		</VerticalStackLayout>
 
-    </ScrollView>
+	</ScrollView>
 
 </ContentPage>

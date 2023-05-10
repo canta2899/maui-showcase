@@ -32,12 +32,12 @@ namespace MauiAppExample.Services
             AuthenticationResponse response;
 
             try
-            { 
+	        { 
 			    response = await _httpClient.PostJson<AuthenticationResponse>("/api/auth/local", authRequest);
 		    }
             catch (Exception ex)
             {
-                return Response.Error(ex.Message);
+	            return Response.Error(ex.Message);
 		    }
 
             _authService.UpdateAuthentication(response);

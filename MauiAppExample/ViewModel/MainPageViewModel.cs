@@ -27,7 +27,7 @@ public class MainPageViewModel : BaseViewModel
 
 		NavigateCommand = new Command(async () =>
 		{
-		 await Shell.Current.GoToAsync(nameof(ProductPage));
+			await Shell.Current.GoToAsync(nameof(ProductPage));
 		});
 
 		OnAppearingCommand = new Command(async () => await LoadPosts());
@@ -39,5 +39,5 @@ public class MainPageViewModel : BaseViewModel
 		Posts.Clear();
 
 		foreach (var p in currentPosts) Posts.Add(p);
-    }
+	}
 }
