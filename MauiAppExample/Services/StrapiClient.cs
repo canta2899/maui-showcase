@@ -30,7 +30,7 @@ namespace MauiAppExample.Services
         public async Task<Response> Login(AuthenticationRequest authRequest)
         {
             AuthenticationResponse response;
-
+            
             try
             { 
               response = await _httpClient.PostJson<AuthenticationResponse>("/api/auth/local", authRequest);
@@ -40,7 +40,8 @@ namespace MauiAppExample.Services
                 return Response.Error(ex.Message);
             }
 
-            _authService.UpdateAuthentication(response);
+            _authService.AccessToken = response.Jwt;
+            _authService.CurrentUser = response.User;
 
             return Response.Success;
         }

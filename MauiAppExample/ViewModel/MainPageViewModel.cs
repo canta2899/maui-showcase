@@ -27,7 +27,7 @@ public class MainPageViewModel : BaseViewModel
 
 		NavigateCommand = new Command(async () =>
 		{
-			await Shell.Current.GoToAsync(nameof(ProductPage));
+			await Shell.Current.GoToAsync(nameof(InsertPage));
 		});
 
 		OnAppearingCommand = new Command(async () => await LoadPosts());

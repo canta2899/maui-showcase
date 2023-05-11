@@ -20,12 +20,6 @@
             Padding="30,0"
             VerticalOptions="Center">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
             <Label
                 Text="{Binding WelcomeMessage}"
                 SemanticProperties.HeadingLevel="Level1"
@@ -38,13 +32,6 @@
                 SemanticProperties.Hint="Navigates to product page"
                 Command="{Binding NavigateCommand}"
                 HorizontalOptions="Center" />
-            
-            <Button
-                Text="Fetch"
-                HorizontalOptions="Center"
-                Command="{Binding OnAppearingCommand}"
-                />
-
 
 			<CollectionView ItemsSource="{Binding Posts}">
 				<CollectionView.ItemTemplate>
@@ -56,6 +43,12 @@
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
 			</CollectionView>
+
+            <Button
+                Text="Fetch"
+                HorizontalOptions="Center"
+                Command="{Binding OnAppearingCommand}"
+                />
 		</VerticalStackLayout>
 
 	</ScrollView>

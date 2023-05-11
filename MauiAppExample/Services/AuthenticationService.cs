@@ -13,17 +13,11 @@ namespace MauiAppExample.Services
         {
         }
 
-        public bool IsAuthenticated => false;
+        public bool IsAuthenticated => string.IsNullOrEmpty(AccessToken);
 
-        public string AccessToken { get; private set; }
+        public string AccessToken { get; set; }
 
-        public User CurrentUser { get; private set; }
-
-        public void UpdateAuthentication(AuthenticationResponse authResponse)
-        {
-            AccessToken = authResponse.Jwt;
-            CurrentUser = authResponse.User;
-        }
+        public User CurrentUser { get; set; }
     }
 
 }

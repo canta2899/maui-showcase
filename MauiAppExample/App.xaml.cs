@@ -1,4 +1,5 @@
-﻿using MauiAppExample.Services;
+﻿using System.Diagnostics;
+using MauiAppExample.Services;
 using MauiAppExample.View;
 
 namespace MauiAppExample;
@@ -8,6 +9,8 @@ public partial class App : Application
     public App(IServiceProvider serviceProvider)
     {
         InitializeComponent();
+
+        MainPage = serviceProvider.GetService<LoadingPage>();
 
         var authService = serviceProvider.GetService<IAuthenticationService>();
 

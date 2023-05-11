@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
-             x:DataType="viewmodel:ProductPageViewModel"
-             x:Class="MauiAppExample.View.ProductPage">
+             x:DataType="viewmodel:InsertPageViewModel"
+             x:Class="MauiAppExample.View.InsertPage">
 
     <ScrollView>
         <VerticalStackLayout

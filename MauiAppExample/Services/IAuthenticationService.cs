@@ -8,10 +8,8 @@ public interface IAuthenticationService
 {
     public bool IsAuthenticated { get; }
 
-    public string AccessToken { get; }
+    public string AccessToken { get; set; }
 
-    public User CurrentUser { get; }
-
-    public void UpdateAuthentication(AuthenticationResponse authResponse);
+    public User CurrentUser { get; set; }
 }
 

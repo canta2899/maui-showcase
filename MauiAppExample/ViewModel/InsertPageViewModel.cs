@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MauiAppExample.ViewModel;
 
-public class ProductPageViewModel : BaseViewModel 
+public class InsertPageViewModel : BaseViewModel 
 {
 
     private string _msg;
@@ -13,7 +13,7 @@ public class ProductPageViewModel : BaseViewModel
         set => SetProperty(ref _msg, value);
     }
 
-    public ProductPageViewModel()
+    public InsertPageViewModel()
     {
         Msg = "A message";
     }

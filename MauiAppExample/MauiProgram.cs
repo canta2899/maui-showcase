@@ -20,11 +20,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        builder.Services.AddSingleton<LoadingPage>();
         builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<ProductPageViewModel>();
-        builder.Services.AddSingleton<ProductPage>();
+        builder.Services.AddSingleton<InsertPageViewModel>();
+        builder.Services.AddSingleton<InsertPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<LoginPageViewModel>();
         builder.Services.AddScoped<StrapiClientAuthHandler>();
