@@ -15,12 +15,6 @@ public partial class LoginPage : ContentPage
 
     private async void AuthenticationHandler(object sender, Response response)
     {
-        await SecureStorage.Default.SetAsync("test", "value");
-
-        var retrieved = await SecureStorage.Default.GetAsync("test");
-
-        await DisplayAlert("Retrieved", $"The retrieved value is {retrieved}", "Ok");
-
         if (response is ErrorResponse r)
         {
             await DisplayAlert("Warning", $"Invalid authentication: {r.ErrorMessage}", "Ok");

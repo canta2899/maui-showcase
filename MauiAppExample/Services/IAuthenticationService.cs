@@ -11,5 +11,9 @@ public interface IAuthenticationService
     public string AccessToken { get; set; }
 
     public User CurrentUser { get; set; }
+
+    public Task Init();
+
+    public Task Save();
 }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Text.Json;
-using MauiAppExample.Data;
-using MauiAppExample.Extensions;
-using MauiAppExample.Model.Auth;
+﻿using MauiAppExample.Model.Auth;
 
 namespace MauiAppExample.Services
 {
@@ -18,6 +13,16 @@ namespace MauiAppExample.Services
         public string AccessToken { get; set; }
 
         public User CurrentUser { get; set; }
+
+        public async Task Init()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Save()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
