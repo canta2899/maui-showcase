@@ -1,15 +1,16 @@
 ﻿using System;
+using MauiAppExample.Extensions;
 using MauiAppExample.Model;
 
 namespace MauiAppExample.Services;
 
 public class PostsRepository
 {
-    private readonly StrapiClient _client;
+    private readonly HttpClient _client;
 
-    public PostsRepository(StrapiClient client)
+    public PostsRepository(IHttpClientFactory httpClientFactory)
     {
-        _client = client;
+        _client = httpClientFactory.CreateClient("services");
     }
 
     public async Task<IEnumerable<Post>> GetForCurrentUser()

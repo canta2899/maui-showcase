@@ -10,9 +10,9 @@ public class AuthRepository
     private readonly HttpClient _client;
     private readonly IAuthenticationService _authService;
 
-    public AuthRepository(HttpClient client, IAuthenticationService authService)
+    public AuthRepository(IHttpClientFactory httpClientFactory, IAuthenticationService authService)
     {
-        _client = client;
+        _client = httpClientFactory.CreateClient("auth");
         _authService = authService;
     }
 
@@ -29,15 +29,14 @@ public class AuthRepository
             return Response.Error(ex.Message);
         }
 
-        _authService.AccessToken = response.Jwt;
-        _authService.CurrentUser = response.User;
+        await _authService.UpdateAsync(response);
 
         return Response.Success;
     }
 
-    public async Task Logout(string username, string password)
-    { 
-        throw new NotImplementedException("Not implemented");
+    public void Logout()
+    {
+        _authService.Clear();
     }
 }
 

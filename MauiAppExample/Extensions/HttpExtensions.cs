@@ -48,5 +48,11 @@ public static class HttpExtensions
 
         return responseString.FromJson<T>();
     }
+
+    public static void AcceptOnlyJson(this HttpClient client)
+    { 
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
+    }
 }
 

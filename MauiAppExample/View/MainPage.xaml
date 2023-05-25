@@ -26,14 +26,31 @@
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Button
-                x:Name="NavigateBtn"
-                Text="Change Page"
-                SemanticProperties.Hint="Navigates to product page"
-                Command="{Binding NavigateCommand}"
-                HorizontalOptions="Center" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button
+                    x:Name="NavigateBtn"
+                    Text="Change Page"
+                    SemanticProperties.Hint="Navigates to product page"
+                    Command="{Binding NavigateCommand}"
+                    Margin="0,0,10,0"
+                     />
+                <Button 
+                    x:Name="LogoutBtn" 
+                    Text="Logout" 
+                    SemanticProperties.Hint="Logs out"
+                    Command="{Binding LogoutCommand}" 
+                    Margin="10,0,0,0"
+                    />
+                <Button
+                    Text="Fetch"
+                    Margin="10,0,0,0"
+                    HorizontalOptions="Center"
+                    Command="{Binding OnAppearingCommand}"
+                    />
+            </StackLayout>
 
-			<CollectionView ItemsSource="{Binding Posts}">
+
+			<!--<CollectionView ItemsSource="{Binding Posts}" >
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="model:Post">
 						<Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
@@ -42,13 +59,19 @@
 						</Grid>
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
-			</CollectionView>
+			</CollectionView>-->
 
-            <Button
-                Text="Fetch"
-                HorizontalOptions="Center"
-                Command="{Binding OnAppearingCommand}"
-                />
+            <StackLayout BindableLayout.ItemsSource="{Binding Posts}" Orientation="Vertical">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="model:Post">
+						<Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
+                            <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
+                            <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}"/>
+						</Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
 		</VerticalStackLayout>
 
 	</ScrollView>

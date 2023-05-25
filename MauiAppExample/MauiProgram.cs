@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using MauiAppExample.Extensions;
 using MauiAppExample.Services;
 using MauiAppExample.View;
 using MauiAppExample.ViewModel;
@@ -30,7 +31,22 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginPageViewModel>();
         builder.Services.AddScoped<StrapiClientAuthHandler>();
         builder.Services.AddTransient<PostsRepository>();
-        builder.Services.AddHttpClient<StrapiClient>().AddHttpMessageHandler<StrapiClientAuthHandler>();
+        builder.Services.AddTransient<AuthRepository>();
+
+        builder.Services.AddHttpClient("auth", client => 
+        {
+            client.AcceptOnlyJson();
+            client.BaseAddress = new Uri(Shared.StrapiAuthUrl);
+        });
+
+        builder
+            .Services
+            .AddHttpClient("services", client =>
+            {
+                client.AcceptOnlyJson();
+                client.BaseAddress = new Uri(Shared.StrapiServiceUrl);
+            })
+            .AddHttpMessageHandler<StrapiClientAuthHandler>();
 
 #if DEBUG
         builder.Logging.AddDebug();

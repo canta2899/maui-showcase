@@ -8,12 +8,14 @@ public interface IAuthenticationService
 {
     public bool IsAuthenticated { get; }
 
-    public string AccessToken { get; set; }
+    public string AccessToken { get; }
 
-    public User CurrentUser { get; set; }
+    public User CurrentUser { get; }
 
-    public Task Init();
+    public Task InitAsync();
 
-    public Task Save();
+    public void Clear();
+
+    public Task UpdateAsync(AuthenticationResponse authResponse);
 }
 

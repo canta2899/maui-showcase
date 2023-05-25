@@ -6,7 +6,6 @@ namespace MauiAppExample.ViewModel;
 
 public class LoginPageViewModel : BaseViewModel
 {
-    private readonly StrapiClient _client;
     private readonly AuthRepository _authRepository;
     private string _identifier;
     private string _password;
@@ -25,9 +24,8 @@ public class LoginPageViewModel : BaseViewModel
 
     public Command AuthenticateCommand { get; }
 
-    public LoginPageViewModel(StrapiClient client, AuthRepository authRepository)
+    public LoginPageViewModel(AuthRepository authRepository)
     {
-        _client = client;
         _authRepository = authRepository;
         Identifier = "";
         Password = "";

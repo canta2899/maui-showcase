@@ -12,11 +12,23 @@ public partial class App : Application
 
         MainPage = serviceProvider.GetService<LoadingPage>();
 
+        LoadInitialPage(serviceProvider);
+
+    }
+
+    public async void LoadInitialPage(IServiceProvider serviceProvider)
+    {
+        MainPage = new AppShell();
+
         var authService = serviceProvider.GetService<IAuthenticationService>();
+        await authService.InitAsync();
 
         if (authService.IsAuthenticated)
-            MainPage = new AppShell();
+        {
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+            return;
+        }
 
-        MainPage = serviceProvider.GetService<LoginPage>();
+        await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");;
     }
 }

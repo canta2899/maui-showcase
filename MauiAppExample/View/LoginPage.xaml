@@ -5,16 +5,17 @@
              x:Class="MauiAppExample.View.LoginPage"
              x:DataType="viewmodel:LoginPageViewModel"
              Title="LoginPage">
-	<VerticalStackLayout VerticalOptions="Center">
-		<Label 
-		    Text="Welcome!"
-		    FontSize="32"
-		    VerticalOptions="Center" 
-		    HorizontalOptions="Center" />
+	<VerticalStackLayout VerticalOptions="StartAndExpand">
 
-		<StackLayout Orientation="Vertical" Margin="0,50,0,50">
+		<Image 
+            Source="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png"
+            WidthRequest="250"
+			HeightRequest="310" />
+
+
+		<StackLayout Orientation="Vertical" Margin="0,0,0,30">
 			<Label FontSize="20" Text="Username" WidthRequest="120"/>
-			<Entry x:Name="userNameEntry" FontSize="15" Placeholder="Entry your identifier" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+			<Entry x:Name="userNameEntry" FontSize="15" Keyboard="Email" Placeholder="Entry your identifier" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
 		</StackLayout>
 
 		<StackLayout Orientation="Vertical">
@@ -22,6 +23,6 @@
 			<Entry x:Name="passwordEntry" FontSize="15" Placeholder="Entry your username" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
 		</StackLayout>
 
-        <Button VerticalOptions="Center" Margin="0,50,0,0" FontSize="32" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
+        <Button VerticalOptions="Center" Margin="0,50,0,0" FontSize="22" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

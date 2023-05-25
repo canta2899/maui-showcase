@@ -13,6 +13,18 @@ public partial class LoginPage : ContentPage
         WeakReferenceMessenger.Default.Register<Response>(this, AuthenticationHandler);
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ClearEntries();
+    }
+
+    private void ClearEntries()
+    { 
+        userNameEntry.Text = "";
+        passwordEntry.Text = "";
+    }
+
     private async void AuthenticationHandler(object sender, Response response)
     {
         if (response is ErrorResponse r)
@@ -21,6 +33,7 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        Application.Current.MainPage = new AppShell();
+        ClearEntries();
+        await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
     }
 }

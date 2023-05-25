@@ -7,9 +7,23 @@
     xmlns:view="clr-namespace:MauiAppExample.View"
     Shell.FlyoutBehavior="Disabled">
 
+    <!--Login Page-->
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate view:LoginPage}"
+        Route="LoginPage"/>
+
+    <!--Main Page-->
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate view:MainPage}"
         Route="MainPage" />
+
+
+    <ShellContent
+        Title="Insert"
+        ContentTemplate="{DataTemplate view:InsertPage}"
+        Route="InsertPage" />
+
 
 </Shell>

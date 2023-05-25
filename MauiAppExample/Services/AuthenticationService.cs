@@ -1,4 +1,5 @@
-﻿using MauiAppExample.Model.Auth;
+﻿using MauiAppExample.Extensions;
+using MauiAppExample.Model.Auth;
 
 namespace MauiAppExample.Services
 {
@@ -8,20 +9,36 @@ namespace MauiAppExample.Services
         {
         }
 
-        public bool IsAuthenticated => string.IsNullOrEmpty(AccessToken);
+        public bool IsAuthenticated => !string.IsNullOrEmpty(AccessToken);
 
-        public string AccessToken { get; set; }
+        public string AccessToken { get; private set; }
 
-        public User CurrentUser { get; set; }
+        public User CurrentUser { get; private set; }
 
-        public async Task Init()
+        public void Clear()
         {
-            throw new NotImplementedException();
+            SecureStorage.Default.Remove("jwt");
+            SecureStorage.Default.Remove("user");
         }
 
-        public async Task Save()
+        public async Task InitAsync()
         {
-            throw new NotImplementedException();
+            var user = await SecureStorage.Default.GetAsync("user");
+            var jwt = await SecureStorage.Default.GetAsync("jwt");
+
+            if (!string.IsNullOrEmpty(user))
+                CurrentUser = user.FromJson<User>();
+
+            if (!string.IsNullOrEmpty(jwt))
+                AccessToken = jwt;
+        }
+
+        public async Task UpdateAsync(AuthenticationResponse authResponse)
+        {
+            AccessToken = authResponse.Jwt;
+            CurrentUser = authResponse.User;
+            await SecureStorage.Default.SetAsync("jwt", AccessToken);
+            await SecureStorage.Default.SetAsync("user", CurrentUser.ToJson());
         }
     }
 
