@@ -29,7 +29,7 @@ public partial class LoginPage : ContentPage
     {
         if (response is ErrorResponse r)
         {
-            await DisplayAlert("Warning", $"Invalid authentication: {r.ErrorMessage}", "Ok");
+            await DisplayAlert("Warning", $"Authentication Error", "Ok");
             return;
         }
 

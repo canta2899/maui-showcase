@@ -8,21 +8,17 @@
 	<VerticalStackLayout VerticalOptions="StartAndExpand">
 
 		<Image 
-            Source="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png"
-            WidthRequest="250"
+            Source="logo_uniud.png"
+            WidthRequest="200"
 			HeightRequest="310" />
 
-
-		<StackLayout Orientation="Vertical" Margin="0,0,0,30">
-			<Label FontSize="20" Text="Username" WidthRequest="120"/>
-			<Entry x:Name="userNameEntry" FontSize="15" Keyboard="Email" Placeholder="Entry your identifier" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
-		</StackLayout>
+		<Label Text="PAO Course" FontSize="30" HorizontalOptions="CenterAndExpand" Margin="0,10,0,40"/>
 
 		<StackLayout Orientation="Vertical">
-			<Label FontSize="20" Text="Password" WidthRequest="120"/>
-			<Entry x:Name="passwordEntry" FontSize="15" Placeholder="Entry your username" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+			<Entry x:Name="userNameEntry" FontSize="15" Keyboard="Email" Placeholder="Your Email" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+			<Entry x:Name="passwordEntry" Margin="0,30,0,0" FontSize="15" Placeholder="Your Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
 		</StackLayout>
 
-        <Button VerticalOptions="Center" Margin="0,50,0,0" FontSize="22" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
+        <Button VerticalOptions="Center" Margin="0,60,0,0" FontSize="22" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

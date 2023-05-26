@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
              x:DataType="viewmodel:InsertPageViewModel"
+             Title="New Post"
              x:Class="MauiAppExample.View.InsertPage">
 
     <ScrollView>

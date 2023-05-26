@@ -6,74 +6,38 @@
              xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
              xmlns:model="clr-namespace:MauiAppExample.Model"
              x:DataType="viewmodel:MainPageViewModel"
+             Title="{Binding WelcomeMessage}"
              x:Class="MauiAppExample.View.MainPage">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
-	        Command="{Binding OnAppearingCommand}"/>
+	        Command="{Binding LoadPostsCommand}"/>
     </ContentPage.Behaviors>
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Label
-                Text="{Binding WelcomeMessage}"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button
-                    x:Name="NavigateBtn"
-                    Text="Change Page"
-                    SemanticProperties.Hint="Navigates to product page"
-                    Command="{Binding NavigateCommand}"
-                    Margin="0,0,10,0"
-                     />
-                <Button 
-                    x:Name="LogoutBtn" 
-                    Text="Logout" 
-                    SemanticProperties.Hint="Logs out"
-                    Command="{Binding LogoutCommand}" 
-                    Margin="10,0,0,0"
-                    />
-                <Button
-                    Text="Fetch"
-                    Margin="10,0,0,0"
-                    HorizontalOptions="Center"
-                    Command="{Binding OnAppearingCommand}"
-                    />
-            </StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add New" Command="{Binding NewPostCommand}" IconImageSource="{FontImage &#xe145;, FontFamily=Material, Size=27}"/>
+        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" IconImageSource="{FontImage &#xe9ba;, FontFamily=Material, Size=27}"/>
+    </ContentPage.ToolbarItems>
 
 
-			<!--<CollectionView ItemsSource="{Binding Posts}" >
-				<CollectionView.ItemTemplate>
-					<DataTemplate x:DataType="model:Post">
-						<Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
-                            <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
-                            <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}"/>
-						</Grid>
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
-			</CollectionView>-->
+    <Grid RowDefinitions="*">
+        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsRefreshing}" Command="{Binding LoadPostsCommand}">
+            <Grid>
+                <CollectionView ItemsSource="{Binding Posts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Post">
+                            <Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="*, auto">
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
+                                <Button Text="&#xe941;" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=InspectCommand}" CommandParameter="{Binding .}" FontSize="20" FontFamily="Material" Grid.Row="0" Grid.Column="1" WidthRequest="80" HorizontalOptions="Start"/>
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}" Margin="0,0,0,10"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </RefreshView>
+    </Grid>
 
-            <StackLayout BindableLayout.ItemsSource="{Binding Posts}" Orientation="Vertical">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="model:Post">
-						<Grid Padding="10" Margin="0,20,0,20" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto">
-                            <Label Grid.Row="0" Grid.Column="0" FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
-                            <Label Grid.Row="1" Grid.Column="0" FontSize="23" Text="{Binding Description}"/>
-						</Grid>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
-
-		</VerticalStackLayout>
-
-	</ScrollView>
 
 </ContentPage>

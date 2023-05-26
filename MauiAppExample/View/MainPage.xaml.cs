@@ -1,4 +1,5 @@
-﻿using MauiAppExample.ViewModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiAppExample.ViewModel;
 
 namespace MauiAppExample.View;
 

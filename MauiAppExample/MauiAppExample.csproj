@@ -35,7 +35,7 @@
       <CodesignKey>Apple Development: caracanta@gmail.com (X2R686M6V3)</CodesignKey>
       <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
       <MtouchLink>None</MtouchLink>
-      <CodesignProvision>iOS Team Provisioning Profile: com.companyname.mauiappexample</CodesignProvision>
+      <CodesignProvision></CodesignProvision>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
       <CreatePackage>false</CreatePackage>
@@ -45,6 +45,10 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
       <CreatePackage>false</CreatePackage>
+      <CodesignKey>Mac Developer</CodesignKey>
+      <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+      <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+      <EnableCodeSigning>True</EnableCodeSigning>
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
@@ -54,10 +58,6 @@
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->
-        <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-
-        <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
@@ -78,6 +78,7 @@
       <Folder Include="Model\" />
       <Folder Include="Model\Auth\" />
       <Folder Include="Extensions\" />
+      <Folder Include="Resources\Images\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -106,5 +107,16 @@
       <None Remove="Model\" />
       <None Remove="Model\Auth\" />
       <None Remove="Extensions\" />
+      <None Remove="Resources\Images\" />
+      <None Remove="Resources\Images\1200px-Logo_Università_di_Udine.svg.png" />
+      <None Remove="Resources\Images\LogoUniud.png" />
+      <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+      <None Remove="Resources\Images\logo_uniud.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <MauiImage Include="Resources\Images\logo_uniud.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="Resources\Images\logo_uniud.png" />
     </ItemGroup>
 </Project>

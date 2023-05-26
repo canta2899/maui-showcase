@@ -19,6 +19,7 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("MaterialIcons-Regular.ttf", "Material");
             });
 
         builder.Services.AddSingleton<LoadingPage>();
@@ -32,6 +33,8 @@ public static class MauiProgram
         builder.Services.AddScoped<StrapiClientAuthHandler>();
         builder.Services.AddTransient<PostsRepository>();
         builder.Services.AddTransient<AuthRepository>();
+
+        builder.Services.AddTransient<IInteractionService, InteractionService>();
 
         builder.Services.AddHttpClient("auth", client => 
         {
