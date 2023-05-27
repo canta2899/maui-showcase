@@ -6,5 +6,9 @@
 	<array>
 		<string>$(AppIdentifierPrefix)com.companyname.mauiappexample</string>
 	</array>
+	<key>com.apple.developer.icloud-services</key>
+	<array>
+		<string>CloudDocuments</string>
+	</array>
 </dict>
 </plist>

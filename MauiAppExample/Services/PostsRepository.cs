@@ -15,7 +15,7 @@ public class PostsRepository
 
     public async Task<IEnumerable<Post>> GetForCurrentUser()
     {
-        var response = await _client.GetJson<StrapiResponse<Post>>($"/api/posts");
+        var response = await _client.GetJson<StrapiResponse<Post>>($"/api/posts?populate=*");
 
         var result = response.Data.Select(x => x.Attributes);
         return result;

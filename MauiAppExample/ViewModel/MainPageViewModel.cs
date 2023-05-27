@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
+using MauiAppExample.Extensions;
 using MauiAppExample.Model;
 using MauiAppExample.Services;
 using MauiAppExample.View;
@@ -25,6 +26,7 @@ public class MainPageViewModel : BaseViewModel
 	public Command LoadPostsCommand { get; }
 	public Command NewPostCommand { get; }
 	public Command InspectCommand { get; }
+	public Command PickerCommand { get; }
 
 	public bool IsRefreshing
 	{
@@ -44,7 +46,42 @@ public class MainPageViewModel : BaseViewModel
 		LogoutCommand = new Command(async () => await Logout());
 		NewPostCommand = new Command(async () => await NewPost());
         InspectCommand = new Command(async (p) => await InspectAsync((Post)p));
+        PickerCommand = new Command(ToAsync(TestPickerCommand));
 	}
+	
+	private async Task TestPickerCommand(object param)
+	{ 
+        var result = await FilePicker.Default.PickAsync();
+		using var client = new HttpClient();
+		client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authService.AccessToken);
+
+		var contentStream = await result.OpenReadAsync();
+
+		using var ms = new MemoryStream();
+		await contentStream.CopyToAsync(ms);
+		var byteArray = ms.ToArray();
+
+		var content = new { Title = "Primo post", FullText = "Testo intero del primo post" };
+
+		var fileContent = new StreamContent(await result.OpenReadAsync());
+		fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+
+        var formData = new MultipartFormDataContent
+        {
+            { new StringContent(content.ToJson()), "data" },
+            { fileContent, "files.asset", result.FileName },
+        };
+
+        var response = await client.PostAsync($"{Shared.StrapiServiceUrl}/api/posts", formData);
+
+		if (!response.IsSuccessStatusCode)
+		{
+			await _uiService.DisplayAlert("Attenzione", $"{response.ReasonPhrase}", "Ok");
+			return;
+        }
+
+		await _uiService.DisplayAlert("Info", "Tutto ok", "Ok");
+    }
 
     private async Task InspectAsync(Post p)
     {
@@ -67,10 +104,7 @@ public class MainPageViewModel : BaseViewModel
 		var currentPosts = await _postsRepository.GetForCurrentUser();
 		Posts.Clear();
 
-		foreach (var p in currentPosts)
-		{
-			Posts.Add(p);
-		}
+		foreach (var p in currentPosts) Posts.Add(p);
 
 		IsRefreshing = false;
 	}

@@ -21,4 +21,9 @@ public abstract class BaseViewModel : INotifyPropertyChanged
     }
 
     protected IServiceProvider ServiceProvider { get; }
+
+    protected Action<object> ToAsync(Func<object, Task> asyncAction)
+    {
+        return async (o) => await asyncAction(o);
+    }
 }
