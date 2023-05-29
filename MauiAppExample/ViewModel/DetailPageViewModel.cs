@@ -36,18 +36,18 @@ public class DetailPageViewModel : BaseViewModel
         return title.Replace(" ", "-").ToLower().Trim();
     }
 
-	public async Task DownloadAsync(object param)
-	{
+    public async Task DownloadAsync(object param)
+    {
         var title = NormalizeTitle(CurrentPost.Asset.Data.Attributes.Name);
 
-		try
-		{ 
+        try
+        { 
             var content = await _postsRepository.DownloadMediaAsync(CurrentPost);
             await _fileSaver.SaveAsync(title, content, CancellationToken.None);
         }
-		catch (Exception)
-		{
-			await _ui.DisplayAlertAsync("Error", "Unable to download file to local device", "Ok");
+        catch (Exception)
+        {
+            await _ui.DisplayAlertAsync("Error", "Unable to download file to local device", "Ok");
         }
     }
 }

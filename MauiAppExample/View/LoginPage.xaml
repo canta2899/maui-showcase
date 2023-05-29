@@ -5,22 +5,22 @@
              x:Class="MauiAppExample.View.LoginPage"
              x:DataType="viewmodel:LoginPageViewModel"
              Title="Login">
-	<VerticalStackLayout VerticalOptions="StartAndExpand">
+    <VerticalStackLayout VerticalOptions="StartAndExpand">
 
-		<Image 
+        <Image 
             Source="logo_uniud.png"
             WidthRequest="200"
-			HeightRequest="310" />
+            HeightRequest="310" />
 
-		<Label
+        <Label
             Text="PAO Course"
             FontSize="30"
             HorizontalOptions="CenterAndExpand"
             Margin="0,10,0,40"/>
 
-		<StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical">
 
-			<Entry
+            <Entry
                 x:Name="userNameEntry"
                 FontSize="15"
                 Keyboard="Email"
@@ -29,7 +29,7 @@
                 HorizontalOptions="Center"
                 WidthRequest="200"/>
 
-			<Entry
+            <Entry
                 x:Name="passwordEntry"
                 Margin="0,30,0,0"
                 FontSize="15"
@@ -39,7 +39,7 @@
                 HorizontalOptions="Center"
                 WidthRequest="200"/>
 
-		</StackLayout>
+        </StackLayout>
 
         <Button
             VerticalOptions="Center"
