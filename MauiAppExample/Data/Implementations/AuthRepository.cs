@@ -1,11 +1,13 @@
 ﻿using System;
 using MauiAppExample.Data;
+using MauiAppExample.Data.Abstractions;
 using MauiAppExample.Extensions;
 using MauiAppExample.Model.Auth;
+using MauiAppExample.Services.Abstractions;
 
-namespace MauiAppExample.Services;
+namespace MauiAppExample.Data.Implementations;
 
-public class AuthRepository
+public class AuthRepository : IAuthRepository
 {
     private readonly HttpClient _client;
     private readonly IAuthenticationService _authService;
@@ -16,22 +18,12 @@ public class AuthRepository
         _authService = authService;
     }
 
-    public async Task<Response> Login(AuthenticationRequest authRequest)
+    public async Task LoginAsync(AuthenticationRequest authRequest)
     {
         AuthenticationResponse response;
-
-        try
-        { 
-          response = await _client.PostJson<AuthenticationResponse>("/api/auth/local", authRequest);
-        }
-        catch (Exception ex)
-        {
-            return Response.Error(ex.Message);
-        }
+        response = await _client.PostJson<AuthenticationResponse>("/api/auth/local", authRequest);
 
         await _authService.UpdateAsync(response);
-
-        return Response.Success;
     }
 
     public void Logout()

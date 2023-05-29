@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
+             x:DataType="viewmodel:DetailPageViewModel"
+             x:Class="MauiAppExample.View.DetailPage"
+             Title="Details">
+
+    <Grid Padding="25" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*">
+
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            TextDecorations="Underline"
+            FontAttributes="Bold"
+            Text="{Binding CurrentPost.Title}"
+            FontSize="28"/>
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            TextColor="{StaticResource Gray100}"
+            Margin="0,20,0,20"
+            Text="{Binding CurrentPost.FullText, Converter={StaticResource MarkdownConverter}}"
+            TextType="Html"
+            FontSize="20"/>
+
+        <Button
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="Download File"
+            Command="{Binding DownloadCommand}"
+            FontSize="20"/>
+    </Grid>
+</ContentPage>

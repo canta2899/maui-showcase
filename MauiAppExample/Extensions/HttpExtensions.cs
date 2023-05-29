@@ -10,17 +10,12 @@ namespace MauiAppExample.Extensions;
 /// </summary>
 public static class HttpExtensions
 {
-    /// <summary>
-    /// Performs a POST request with the provided payload and returns 
-    /// the deserialized response
-    /// </summary>
-    /// <typeparam name="T">The response type</typeparam>
-    /// <param name="client">The current HTTP client</param>
-    /// <param name="endpoint">The request endpoint</param>
-    /// <param name="payload">The request payload</param>
-    /// <returns>The deserialized response</returns>
-    /// <exception cref="HttpRequestException"> </exception>
-    /// <exception cref="SerializerException"> </exception>
+    private static async Task<T> ReadAndDeserializeAsync<T>(HttpResponseMessage response)
+    {
+        response.EnsureSuccessStatusCode();
+        var responseString = await response.Content.ReadAsStringAsync();
+        return responseString.FromJson<T>();
+    }
 
     public static async Task<T> PostJson<T>(this HttpClient client, string endpoint, object payload)
     {
@@ -31,22 +26,19 @@ public static class HttpExtensions
 
         var response = await client.PostAsync(endpoint, content);
 
-        response.EnsureSuccessStatusCode();
+        return await ReadAndDeserializeAsync<T>(response);
+    }
 
-        var responseString = await response.Content.ReadAsStringAsync();
-
-        return responseString.FromJson<T>();
+    public static async Task<T> PostJson<T>(this HttpClient client, string endpoint, HttpContent content)
+    {
+        var response = await client.PostAsync(endpoint, content);
+        return await ReadAndDeserializeAsync<T>(response);
     }
 
     public static async Task<T> GetJson<T>(this HttpClient client, string endpoint)
     {
         var response = await client.GetAsync(endpoint);
-
-        response.EnsureSuccessStatusCode();
-
-        var responseString = await response.Content.ReadAsStringAsync();
-
-        return responseString.FromJson<T>();
+        return await ReadAndDeserializeAsync<T>(response);
     }
 
     public static void AcceptOnlyJson(this HttpClient client)

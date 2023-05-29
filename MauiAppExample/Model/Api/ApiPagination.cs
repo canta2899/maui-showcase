@@ -1,6 +1,6 @@
 ﻿namespace MauiAppExample.Model;
 
-public class StrapiPaginationInfo
+public class ApiPagination
 {
     public int Start { get; set; }
     public int Limit { get; set; }

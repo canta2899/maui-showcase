@@ -20,7 +20,7 @@ public abstract class BaseViewModel : INotifyPropertyChanged
         return true;
     }
 
-    protected IServiceProvider ServiceProvider { get; }
+    protected IServiceProvider ServiceProvider => App.ServiceProvider;
 
     protected Action<object> ToAsync(Func<object, Task> asyncAction)
     {

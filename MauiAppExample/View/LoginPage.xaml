@@ -4,7 +4,7 @@
              xmlns:viewmodel="clr-namespace:MauiAppExample.ViewModel"
              x:Class="MauiAppExample.View.LoginPage"
              x:DataType="viewmodel:LoginPageViewModel"
-             Title="LoginPage">
+             Title="Login">
 	<VerticalStackLayout VerticalOptions="StartAndExpand">
 
 		<Image 
@@ -12,13 +12,48 @@
             WidthRequest="200"
 			HeightRequest="310" />
 
-		<Label Text="PAO Course" FontSize="30" HorizontalOptions="CenterAndExpand" Margin="0,10,0,40"/>
+		<Label
+            Text="PAO Course"
+            FontSize="30"
+            HorizontalOptions="CenterAndExpand"
+            Margin="0,10,0,40"/>
 
 		<StackLayout Orientation="Vertical">
-			<Entry x:Name="userNameEntry" FontSize="15" Keyboard="Email" Placeholder="Your Email" Text="{Binding Identifier, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
-			<Entry x:Name="passwordEntry" Margin="0,30,0,0" FontSize="15" Placeholder="Your Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="200"/>
+
+			<Entry
+                x:Name="userNameEntry"
+                FontSize="15"
+                Keyboard="Email"
+                Placeholder="Your Email"
+                Text="{Binding Identifier, Mode=TwoWay}"
+                HorizontalOptions="Center"
+                WidthRequest="200"/>
+
+			<Entry
+                x:Name="passwordEntry"
+                Margin="0,30,0,0"
+                FontSize="15"
+                Placeholder="Your Password"
+                IsPassword="True"
+                Text="{Binding Password, Mode=TwoWay}"
+                HorizontalOptions="Center"
+                WidthRequest="200"/>
+
 		</StackLayout>
 
-        <Button VerticalOptions="Center" Margin="0,60,0,0" FontSize="22" Text="Login" HorizontalOptions="Center" Command="{Binding AuthenticateCommand}"/>
+        <Button
+            VerticalOptions="Center"
+            Margin="0,60,0,0"
+            FontSize="22"
+            Text="Login"
+            HorizontalOptions="Center"
+            Command="{Binding AuthenticateCommand}"/>
+
+        <Label
+            Margin="0,20,0,0"
+            FontSize="Micro"
+            Text="{Binding PlatformInfo, FallbackValue=No platform info provided, StringFormat='Running on {0}'}"
+            HorizontalOptions="Center"/>
+
     </VerticalStackLayout>
 </ContentPage>

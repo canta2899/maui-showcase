@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0-ios</TargetFrameworks>
+        <TargetFrameworks>net7.0-ios;net7.0</TargetFrameworks>
         <!--;net7.0-maccatalyst-->
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
-        <OutputType>Exe</OutputType>
+		<OutputType Condition="'$(TargetFramework)' != 'net7.0'">Exe</OutputType>
         <RootNamespace>MauiAppExample</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
@@ -53,16 +53,13 @@
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#111111" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\Splash\splash.jpg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->
         <MauiFont Include="Resources\Fonts\*" />
-
-        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -72,6 +69,10 @@
         <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
         <PackageReference Include="CommunityToolkit.Maui.Core" Version="5.1.0" />
         <PackageReference Include="Markdig.Signed" Version="0.31.0" />
+        <PackageReference Include="MimeTypes" Version="2.4.1">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
@@ -82,6 +83,13 @@
       <Folder Include="Extensions\" />
       <Folder Include="Resources\Images\" />
       <Folder Include="Converters\" />
+      <Folder Include="Model\Api\" />
+      <Folder Include="Services\Abstractions\" />
+      <Folder Include="Services\Implementations\" />
+      <Folder Include="Services\Handlers\" />
+      <Folder Include="Exceptions\" />
+      <Folder Include="Data\Abstractions\" />
+      <Folder Include="Data\Implementations\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -116,6 +124,13 @@
       <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
       <None Remove="Resources\Images\logo_uniud.png" />
       <None Remove="Converters\" />
+      <None Remove="Model\Api\" />
+      <None Remove="Services\Abstractions\" />
+      <None Remove="Services\Implementations\" />
+      <None Remove="Services\Handlers\" />
+      <None Remove="Exceptions\" />
+      <None Remove="Data\Abstractions\" />
+      <None Remove="Data\Implementations\" />
     </ItemGroup>
     <ItemGroup>
       <MauiImage Include="Resources\Images\logo_uniud.png" />

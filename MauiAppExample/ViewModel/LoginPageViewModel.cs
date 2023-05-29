@@ -1,14 +1,19 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using MauiAppExample.Data;
+using MauiAppExample.Data.Abstractions;
+using MauiAppExample.Data.Implementations;
 using MauiAppExample.Model.Auth;
 using MauiAppExample.Services;
+using MauiAppExample.Services.Abstractions;
 
 namespace MauiAppExample.ViewModel;
 
 public class LoginPageViewModel : BaseViewModel
 {
-    private readonly AuthRepository _authRepository;
+    private readonly IAuthRepository _authRepository;
+    private readonly IUIService _ui;
     private string _identifier;
     private string _password;
+    private string _platformInfo;
 
     public string Identifier
     {
@@ -22,23 +27,49 @@ public class LoginPageViewModel : BaseViewModel
         set => SetProperty(ref _password, value);
     }
 
+    public string PlatformInfo
+    {
+        get => _platformInfo;
+        set => SetProperty(ref _platformInfo, value);
+    }
+
     public Command AuthenticateCommand { get; }
 
-    public LoginPageViewModel(AuthRepository authRepository)
+
+    public LoginPageViewModel(IAuthRepository authRepository, IUIService ui)
     {
         _authRepository = authRepository;
+        _ui = ui;
         Identifier = "";
         Password = "";
-        AuthenticateCommand = new Command(
-		    async () => await Authenticate());
+        PlatformInfo = ServiceProvider.GetService<IPlatformInfo>().GetPlatform();
+        AuthenticateCommand = new Command(ToAsync(AuthenticateAsync));
     }
 
-    private async Task Authenticate()
+
+    public async Task AuthenticateAsync(object param)
     {
-        var response = await _authRepository.Login(new AuthenticationRequest { Identifier = Identifier, Password = Password }); ;
+        try
+        { 
+            await _authRepository.LoginAsync(new AuthenticationRequest { Identifier = Identifier, Password = Password }); ;
+            await _ui.NavigateToAsync($"///MainPage");
+        }
+        catch (Exception ex)
+        { 
+            await _ui.DisplayAlertAsync("Warning", $"Authentication error: {ex.Message}", "Ok");
+        }
+        finally
+        {
+            ClearEntries();
+        }
 
-        WeakReferenceMessenger.Default.Send(response);
     }
 
+
+    public void ClearEntries()
+    {
+        Identifier = string.Empty;
+        Password = string.Empty;
+    }
 }
 

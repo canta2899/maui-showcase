@@ -2,5 +2,5 @@
 
 public class StrapiMetadata
 {
-    public StrapiPaginationInfo Pagination { get; set; }
+    public ApiPagination Pagination { get; set; }
 }

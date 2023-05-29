@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using MauiAppExample.Data;
+using MauiAppExample.Exceptions;
 
 namespace MauiAppExample.Extensions
 {

@@ -1,14 +1,11 @@
 ﻿using MauiAppExample.Extensions;
 using MauiAppExample.Model.Auth;
+using MauiAppExample.Services.Abstractions;
 
-namespace MauiAppExample.Services
+namespace MauiAppExample.Services.Implementations
 {
     public class AuthenticationService : IAuthenticationService
     {
-        public AuthenticationService()
-        {
-        }
-
         public bool IsAuthenticated => !string.IsNullOrEmpty(AccessToken);
 
         public string AccessToken { get; private set; }

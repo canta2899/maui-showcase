@@ -10,30 +10,5 @@ public partial class LoginPage : ContentPage
     {
         InitializeComponent();
         this.BindingContext = vm;
-        WeakReferenceMessenger.Default.Register<Response>(this, AuthenticationHandler);
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        ClearEntries();
-    }
-
-    private void ClearEntries()
-    { 
-        userNameEntry.Text = "";
-        passwordEntry.Text = "";
-    }
-
-    private async void AuthenticationHandler(object sender, Response response)
-    {
-        if (response is ErrorResponse r)
-        {
-            await DisplayAlert("Warning", $"Authentication Error", "Ok");
-            return;
-        }
-
-        ClearEntries();
-        await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
     }
 }

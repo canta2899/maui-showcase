@@ -1,6 +1,11 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Storage;
+using MauiAppExample.Data.Abstractions;
+using MauiAppExample.Data.Implementations;
 using MauiAppExample.Extensions;
-using MauiAppExample.Services;
+using MauiAppExample.Services.Abstractions;
+using MauiAppExample.Services.Handlers;
+using MauiAppExample.Services.Implementations;
 using MauiAppExample.View;
 using MauiAppExample.ViewModel;
 using Microsoft.Extensions.Logging;
@@ -12,6 +17,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
@@ -22,39 +28,61 @@ public static class MauiProgram
                 fonts.AddFont("MaterialIcons-Regular.ttf", "Material");
             });
 
-        builder.Services.AddSingleton<LoadingPage>();
+
+        builder.Services.AddPages();
+        builder.Services.AddClients();
+        builder.Services.AddPlatformImplementations();
+
+        builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
         builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
-        builder.Services.AddSingleton<MainPageViewModel>();
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<InsertPageViewModel>();
-        builder.Services.AddSingleton<InsertPage>();
-        builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<LoginPageViewModel>();
-        builder.Services.AddScoped<StrapiClientAuthHandler>();
-        builder.Services.AddTransient<PostsRepository>();
-        builder.Services.AddTransient<AuthRepository>();
+        builder.Services.AddTransient<IPostsRepository, PostsRepository>();
+        builder.Services.AddTransient<IAuthRepository, AuthRepository>();
+        builder.Services.AddTransient<IUIService, UIService>();
 
-        builder.Services.AddTransient<IInteractionService, InteractionService>();
-
-        builder.Services.AddHttpClient("auth", client => 
-        {
-            client.AcceptOnlyJson();
-            client.BaseAddress = new Uri(Shared.StrapiAuthUrl);
-        });
-
-        builder
-            .Services
-            .AddHttpClient("services", client =>
-            {
-                client.AcceptOnlyJson();
-                client.BaseAddress = new Uri(Shared.StrapiServiceUrl);
-            })
-            .AddHttpMessageHandler<StrapiClientAuthHandler>();
-
-#if DEBUG
+        #if DEBUG
         builder.Logging.AddDebug();
-#endif
+        #endif
 
         return builder.Build();
+    }
+
+    public static void AddPlatformImplementations(this IServiceCollection services)
+    {
+        // this allows test project to work
+
+        #if (IOS || ANDROID || WINDOWS)
+        services.AddTransient<IPlatformInfo, Platforms.PlatformInfo>();
+        #endif
+    }
+
+    public static void AddPages(this IServiceCollection services)
+    { 
+        services.AddSingleton<LoadingPage>();
+        services.AddSingleton<MainPage>();
+        services.AddSingleton<InsertPage>();
+        services.AddTransient<LoginPage>();
+        services.AddTransient<DetailPage>();
+
+        services.AddSingleton<MainPageViewModel>();
+        services.AddSingleton<InsertPageViewModel>();
+        services.AddTransient<LoginPageViewModel>();
+        services.AddTransient<DetailPageViewModel>();
+    }
+
+
+    public static void AddClients(this IServiceCollection services)
+    { 
+        services.AddScoped<StrapiClientAuthHandler>();
+        services.AddHttpClient("auth", client => 
+        {
+            client.AcceptOnlyJson();
+            client.BaseAddress = new Uri(Shared.ApiAuthUrl);
+        });
+
+        services.AddHttpClient("services", client =>
+        {
+            client.AcceptOnlyJson();
+            client.BaseAddress = new Uri(Shared.ApiServiceUrl);
+        }).AddHttpMessageHandler<StrapiClientAuthHandler>();
     }
 }

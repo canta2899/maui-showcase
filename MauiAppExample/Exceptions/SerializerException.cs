@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MauiAppExample.Data;
+namespace MauiAppExample.Exceptions;
 
 public class SerializerException : Exception
 {

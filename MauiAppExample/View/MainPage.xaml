@@ -16,25 +16,72 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add New" Command="{Binding NewPostCommand}" IconImageSource="{FontImage &#xe145;, FontFamily=Material, Size=27}"/>
-        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" IconImageSource="{FontImage &#xe9ba;, FontFamily=Material, Size=27}"/>
+        <ToolbarItem
+            Text="Add New"
+            Command="{Binding NewPostCommand}"
+            IconImageSource="{FontImage &#xe145;,FontFamily=Material, Size=27}"/>
+
+        <ToolbarItem
+            Text="Logout"
+            Command="{Binding LogoutCommand}"
+            IconImageSource="{FontImage &#xe9ba;, FontFamily=Material, Size=27}"/>
     </ContentPage.ToolbarItems>
 
 
-    <Grid RowDefinitions="Auto,*">
-        <Button Grid.Row="0" Text="Prova" Command="{Binding PickerCommand}"/>
-        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}" Command="{Binding LoadPostsCommand}">
+
+    <Grid RowDefinitions="*" Padding="15">
+
+        <Label
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Text="No posts yet"
+            IsVisible="{Binding HasNoPosts}"/>
+
+        <RefreshView 
+            Grid.Row="0"
+            IsRefreshing="{Binding IsRefreshing}"
+            Command="{Binding LoadPostsCommand}">
+
             <Grid>
-                <CollectionView ItemsSource="{Binding Posts}" Margin="10,10,10,10">
+                <CollectionView ItemsSource="{Binding Posts}">
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Post">
-                            <VerticalStackLayout x:DataType="model:Post" Margin="10,30,0,0">
-                                <Label FontSize="32" Text="{Binding Title}" Margin="0,0,0,10"/>
-                                <Label FontSize="18" Text="{Binding FullText, Converter={StaticResource MarkdownConverter}}" TextType="Html"/>
-                                <Button Text="Read More" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=InspectCommand}" CommandParameter="{Binding .}" FontSize="15" Grid.Row="2" HorizontalOptions="Start"/>
-                            </VerticalStackLayout>
+                            <Grid 
+                                RowDefinitions="Auto, Auto"
+                                ColumnDefinitions="*, 80"
+                                Padding="10">
+
+                                <Label 
+                                    FontSize="Title"
+                                    Text="{Binding Title}"
+                                    Margin="0,0,10,0"
+                                    Grid.Row="0"
+                                    Grid.Column="0"/>
+
+                                <Label
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    FontSize="Micro"
+                                    Text="{Binding UpdatedAt, FallbackValue=No creation date avilable, StringFormat='Updated at {0}'}"/>
+
+                                <Button
+                                    Text="&#xe8f4;"
+                                    FontFamily="Material"
+                                    VerticalOptions="CenterAndExpand"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=ToDetailsCommand}"
+                                    CommandParameter="{Binding .}"
+                                    FontSize="15"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalOptions="CenterAndExpand"/>
+
+                            </Grid>
                         </DataTemplate>
+
                     </CollectionView.ItemTemplate>
+
                 </CollectionView>
             </Grid>
         </RefreshView>

@@ -2,7 +2,7 @@
 using MauiAppExample.Data;
 using MauiAppExample.Model.Auth;
 
-namespace MauiAppExample.Services;
+namespace MauiAppExample.Services.Abstractions;
 
 public interface IAuthenticationService
 {

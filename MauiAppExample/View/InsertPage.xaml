@@ -6,15 +6,52 @@
              Title="New Post"
              x:Class="MauiAppExample.View.InsertPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            HorizontalOptions="Center"
-            VerticalOptions="Center">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Publish"
+            Command="{Binding PublishCommand}"
+            IconImageSource="{FontImage &#xe255;, FontFamily=Material, Size=27}"/>
+    </ContentPage.ToolbarItems>
 
-            <Label Text="{Binding Msg}" Style="{StaticResource LabelCustom}"/>
-        </VerticalStackLayout>
+
+
+    <ScrollView>
+        <Grid
+            ColumnDefinitions="*"
+            RowDefinitions="Auto,Auto,Auto"
+            RowSpacing="30"
+            Padding="20">
+
+            <VerticalStackLayout Grid.Row="0" Spacing="20">
+                <Label Text="Title" FontSize="Medium"/>
+                <Entry
+                    Text="{Binding CurrentTitle}"
+                    IsTextPredictionEnabled="True"
+                    Placeholder="Your title here"
+                    HorizontalOptions="FillAndExpand"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Spacing="20">
+                <Label
+                    Text="Description"
+                    FontSize="Medium"/>
+                <Editor
+                    Text="{Binding CurrentText}"
+                    Placeholder="Your description here"
+                    IsTextPredictionEnabled="True"
+                    MinimumHeightRequest="300"
+                    VerticalTextAlignment="Start"
+                    HorizontalOptions="FillAndExpand"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" Spacing="10">
+                <Label
+                    Text="{Binding CurrentFile.FileName, FallbackValue=No file selected, StringFormat='Selected file: {0}'}"
+                    HorizontalOptions="End"
+                    FontSize="Small"/>
+                <Button Text="Choose File" Command="{Binding PickFileCommand}"/>
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 
 </ContentPage>
