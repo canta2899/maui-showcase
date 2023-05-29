@@ -34,6 +34,16 @@ style: |
 ![bg w:80%](assets/architecture.png)
 
 ---
+## Model View View-Model
+
+- Architectural pattern
+- Divides the architecture in **three** main components
+  - **Model** (described using POCO classes)
+  - **View Model** (where the business logic resides)
+  - **View** (where the GUI is declared)
+- The framework provides various way to **decouple** the View from the View-Model
+
+![w:1920 h:250 center](assets/mvvm.drawio.svg)
 
 ---
 
