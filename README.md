@@ -1,6 +1,6 @@
 ﻿# .NET MAUI App Example
 
-A demo app that showcases .NET MAUI development using a Model View View-Model pattern. The app allows to visualize and post which is stored on a [strapi](https://strapi.io/) CMS using JWT authentication. A sample test project is provided in order to illustrate how the business logic layer can be unit tested independently thanks to the **loose coupling** provided by the MVVM separation of concerns.
+A demo app that showcases .NET MAUI development using a Model View View-Model pattern. The app allows to visualize and post data which is stored on a [strapi](https://strapi.io/) CMS using JWT authentication. A sample test project is provided in order to illustrate how the business logic layer can be unit tested independently thanks to the **loose coupling** provided by the MVVM separation of concerns.
 
 In order to run one should first setup the **strapi** project by running the following commands inside the `strapi` directory
 
