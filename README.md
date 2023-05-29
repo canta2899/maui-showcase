@@ -1,6 +1,20 @@
 ﻿# .NET MAUI App Example
 
-A demo app that showcases .NET MAUI development using a Model View View-Model pattern.
+A demo app that showcases .NET MAUI development using a Model View View-Model pattern. The app allows to visualize and post which is stored on a [strapi](https://strapi.io/) CMS using JWT authentication. A sample test project is provided in order to illustrate how the business logic layer can be unit tested independently thanks to the **loose coupling** provided by the MVVM separation of concerns.
+
+In order to run one should first setup the **strapi** project by running the following commands inside the `strapi` directory
+
+```bash
+yarn install
+yarn build
+yarn start
+```
+
+Then the MauiApp can be compiled from visual studio and deployed to your device or simulator. Make sure that `MauiAppExample\Shared.cs` contains the correct API base address since it is the one that will be used while the application is running.
+
+## SecureStorage
+
+The SecureStorage compatibility has been ensured only for iOS/MacCatalyst platforms, but it can be added for Windows or Android by following the steps reported on the [official docs](https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/secure-storage?tabs=android).
 
 ### Using SecureStorage API on iOS and MacCatalyst
 

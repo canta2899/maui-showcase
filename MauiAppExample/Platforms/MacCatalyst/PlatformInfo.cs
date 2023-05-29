@@ -6,7 +6,7 @@ public class PlatformInfo : IPlatformInfo
 {
     public string GetPlatform()
     {
-        throw new NotImplementedException();
+        return "mac-catalyst";
     }
 }
 
