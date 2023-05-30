@@ -15,6 +15,10 @@ style: |
   }
   .filename {
     font-size: 0.7rem;
+    font-family: monospace;
+    padding: 0;
+    margin-bottom: 0;
+    text-align: start;
   }
   .columns {
     display: grid;
@@ -128,7 +132,7 @@ public class Post
 
   public string ToHtml()
   {
-    return Markdig.Markdown.ToHtml((string)value);
+    return Markdig.Markdown.ToHtml((string)FullText);
   }
 }
 
@@ -145,16 +149,14 @@ public class Post
 - Not unit testable 
 - Tight coupling between UI and Business Logic
   + <span style="font-size: 1.5rem"> _Do I really need to touch the UI if I want to swap the HTTP call with something else?_ </span>
-- A few more buttons and it would be difficult to understand
-
-The code can be refactored in order to follow the **Model View ViewModel** pattern as Microsoft recommends.
+  + <span style="font-size: 1.5rem"> _What If wanted my logic to run on another thread? :worried:_ </span>
+- A few more buttons and it would be difficult to understand by other developers
 
 ---
 
 # :thinking: What can be done?
 
-- Architectural Patterns
-- Design Patterns
+The code can be refactored by employing some **Architectural** and **Design** Patterns in order to make it easier to mantain and evolve.
 
 ---
 
@@ -191,7 +193,7 @@ in .NET MAUI
 
 <div class="filename">
 
-`MainWindow.xaml`
+MainWindow.xaml
 
 </div>
 
@@ -217,7 +219,7 @@ in .NET MAUI
 
 <div class="filename">
 
-`MainWindow.xaml.cs`
+MainWindow.xaml.cs
 
 </div>
 
@@ -255,22 +257,21 @@ Data binding happens at <u>Runtime</u> and does not require a <u>Compile Time</u
 
 <div class="filename">
 
-`MainWindow.xaml`
+MainWindow.xaml
 
 </div>
-
-```xml
-<Label 
-    Text="{Binding Message }"
-    VerticalOptions="Center" 
-    HorizontalOptions="Center" />
-```
 
 ```xml
 <Label 
     Text="{Binding Message, Converter = ..., FallbackValue = ..., Mode = ...}"
     VerticalOptions="Center" 
     HorizontalOptions="Center" />
+```
+
+```xml
+<Button
+  Text="Click Me"
+  Command="{Binding SayHiCommand}" />
 ```
 
 ##### Binding Mode can be
@@ -290,7 +291,7 @@ Data binding happens at <u>Runtime</u> and does not require a <u>Compile Time</u
 
 <div class="filename">
 
-`MainWindowViewmodel.cs`
+MainWindowViewmodel.cs
 
 </div>
 
@@ -316,14 +317,14 @@ public string Message
 
 <div class="filename">
 
-`MainWindowViewmodel.cs`
+MainWindowViewmodel.cs
 
 </div>
 
 ```cs
-public Command SayHi { get; set; } = new Command(Callback);
+public Command SayHiCommand { get; set; } = new Command(SayHi);
 
-private void Callback(object param)
+private void SayHi(object param)
 {
   // command logic
 }
@@ -342,14 +343,14 @@ View-ViewModel communication can also be implemented without binding, by using.
 # :bricks: Model
 
 - It can be intended in two different ways according to the requirements:
-  - A **state content** (thinner View Model, logic resides in the model itself)
-  - A **data access layer** (thicker View Model, the model is used to describe the data structure)
+  - A **state content** (thinner ViewModel, logic resides in the model itself)
+  - A **data access layer** (thicker ViewModel, the model is only used to describe the data layer)
 
 <br/>
 
 <div class="filename">
 
-`Post.cs`
+Post.cs
 
 </div>
 
@@ -358,6 +359,7 @@ public class Post
 {
   public string Title {get; set;}
   public string FullText {get; set;}
+  public string MediaUrl {get; set;}
 }
 ```
 ---
@@ -372,7 +374,8 @@ public class Post
 
 ---
 
-The usage of design patterns makes development easier and allows developer to handle complex lifecycles while keeping complexity under control.
+- The usage of design patterns makes development easier and allows developer to handle complex lifecycles while keeping complexity under control. 
+- **MVVM** <u>favors</u> the introduction of patterns.
 
 <br/>
 
@@ -416,7 +419,7 @@ The usage of design patterns makes development easier and allows developer to ha
 
 ### Idea 
 
-1. The application builder registers service and classes to the **dependency container**, providing a concrete type, a lifecycle indication and, eventually, an **abstraction** 
+1. The application builder registers **services** and **classes** to the **DI Container**, providing a concrete type, a lifecycle indication and, eventually, an **abstraction** 
 2. At runtime, a dependency can be requested from the **container**
 3. The latter will automatically figure out how to istantiate the object by looking at its constructor and providing the required services
 4. An instance of the object is then returned
@@ -428,17 +431,18 @@ The usage of design patterns makes development easier and allows developer to ha
 <div>
 <div class="filename">
 
-`AppBuilder.cs`
+AppBuilder.cs
 </div>
 
-```csharp
+```cs
 service.AddSingleton<IAuth, Auth>();
 service.AddTransient<IRepository, Repository>();
+
 ```
-<div style="margin-top: 30px"></div>
+<div style="margin-top: 22px"></div>
 <div class="filename">
 
-`MyViewModel.cs`
+MyViewModel.cs
 </div>
 
 ```cs
@@ -450,22 +454,22 @@ service.AddTransient<IRepository, Repository>();
 <div >
 <div class="filename">
 
-`Auth.cs`
+Auth.cs
 </div>
 
 ```cs
-// constructor
+// constructor                                
 
 public Auth()
 ```
-<hr/>
+
 <div class="filename">
 
-`Repository.cs`
+Repository.cs
 </div>
 
 ```cs
-// constructor
+// constructor                              
 
 public Repository(IAuth auth)
 ```
@@ -481,7 +485,7 @@ The dependency container detects the `IRepository` concrete implementation and *
 
 <div class="center">
 
-# :nerd_face: Project Sample
+# Project Sample &nbsp; :nerd_face:
 
 <div style="font-size: 1.7rem">
 
@@ -495,3 +499,54 @@ How are **MVVM**, **Dependency Injection** and **Design Patterns** applied in a 
 
 </div>
 
+---
+
+<div class="center">
+
+### Project Structure
+
+</div>
+
+<div style="margin: 0 auto;">
+
+```
+MauiAppExample
+│
+├── MauiProgram.cs
+├── Shared.cs
+|
+├── App.xaml / App.xaml.cs
+├── AppShell.xaml / AppShell.xaml.cs
+|
+├── /Converters
+├── /Data
+├── /Exceptions
+├── /Extensions
+|
+├── /Resources
+├── /Platforms
+│   ├── /Android
+│   ├── /MacCatalyst
+│   ├── /Tizen
+│   ├── /Windows
+│   └── /iOS
+|
+├── /Services
+|
+├── /View
+├── /Model
+├── /ViewModel
+├── MauiAppExample.csproj
+├── /Properties
+
+```
+
+</div>
+
+---
+
+## Resources 
+
+- [.NET Maui Documentation](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui)
+- [MVVM Documentation](https://learn.microsoft.com/it-it/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
+- [Source code](https://github.com/canta2899/maui-showcase.git)
