@@ -374,7 +374,7 @@ public class Post
 
 ---
 
-- The usage of design patterns makes development easier and allows developer to handle complex lifecycles while keeping complexity under control. 
+- The usage of design patterns makes development easier and allows developers to handle complex lifecycles while keeping complexity under control. 
 - **MVVM** <u>favors</u> the introduction of patterns.
 
 <br/>
